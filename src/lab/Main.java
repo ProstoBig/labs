@@ -1,4 +1,4 @@
-package labs;
+package lab;
 
 interface Instrument {
     void play();

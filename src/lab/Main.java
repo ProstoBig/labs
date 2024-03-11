@@ -4,6 +4,10 @@ interface Instrument {
     void play();
 }
 
+interface Tunable {
+    void tune();
+}
+
 class Musician {
     String name;
     public Musician(String name) {
@@ -15,24 +19,27 @@ class Musician {
     }
 }
 
-class Piano implements Instrument {
+class Piano implements Instrument, Tunable {
     @Override
     public void play() {
-        System.out.println(" на піаніно\n");
+        System.out.println(" на піаніно");
+    }
+
+    @Override
+    public void tune() {
+        System.out.println("Струни піаніно налаштовані.");
     }
 }
 
-class Violin implements Instrument {
+class Violin implements Instrument, Tunable {
     @Override
     public void play() {
-        System.out.println(" на скрипці\n");
+        System.out.println(" на скрипці");
     }
-}
 
-class Synthesizer implements Instrument {
     @Override
-    public void play() {
-        System.out.println(" на синтезаторі\n");
+    public void tune() {
+        System.out.println("Струни скрипки налаштовані.");
     }
 }
 
@@ -40,13 +47,18 @@ public class Main {
     public static void main(String[] args) {
         Piano piano = new Piano();
         Violin violin = new Violin();
-        Synthesizer synthesizer = new Synthesizer();
 
         Musician musician = new Musician("Джо");
         Musician musician1 = new Musician("Байден");
 
         musician.playInstrument(piano);
         musician1.playInstrument(violin);
-        musician.playInstrument(synthesizer);
+
+        if (piano instanceof Tunable) {
+            ((Tunable) piano).tune();
+        }
+        if (violin instanceof Tunable) {
+            ((Tunable) violin).tune();
+        }
     }
 }

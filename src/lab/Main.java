@@ -34,7 +34,7 @@ public class Main {
                         System.out.println("Неправильний номер музиканта.");
                         break;
                     }
-                    scanner.nextLine(); // Очистка буфера
+                    scanner.nextLine();
                     System.out.print("Оберіть номер інструменту (1.піаніно або 2.скрипка): ");
                     String instrumentChoice = scanner.nextLine().toLowerCase();
                     Instrument instrumentToAdd;
@@ -59,7 +59,7 @@ public class Main {
                     System.out.println("Виконання усіх музикантів:");
                     for (Musician musician : musicians) {
                         musician.playInstruments();
-                        System.out.println(); // Додатковий рядок для читабельності
+                        System.out.println();
                     }
                     break;
                 case 4:
@@ -70,7 +70,7 @@ public class Main {
                     System.out.println("Налаштування інструментів музикантів:");
                     for (Musician musician : musicians) {
                         musician.tuneInstruments();
-                        System.out.println(); // Додатковий рядок для читабельності
+                        System.out.println();
                     }
                     break;
                 case 5:

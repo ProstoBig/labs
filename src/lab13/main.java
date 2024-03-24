@@ -1,9 +1,15 @@
+package lab13;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-class EquationSolverWindow extends JFrame {
-    public EquationSolverWindow() {
+public class main extends JFrame {
+    private txt fileWriter;
+
+    public main() {
+        fileWriter = new txt("equation_results.txt");
+
         setTitle("Equation Solver");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setSize(400, 300);
@@ -69,8 +75,12 @@ class EquationSolverWindow extends JFrame {
                 double c = Double.parseDouble(textField3.getText());
 
                 double x = (c - b) / a;
+                String result = "Linear Equation, " + a + ", " + b + ", " + c + ", Solution: x = " + x;
 
                 JOptionPane.showMessageDialog(linearEquationFrame, "Solution: x = " + x);
+
+                // Запис результату в файл
+                fileWriter.writeResult("Linear Equation", a, b, c, "Solution: x = " + x);
             }
         });
 
@@ -114,17 +124,24 @@ class EquationSolverWindow extends JFrame {
                 double c = Double.parseDouble(textField3.getText());
 
                 double discriminant = b * b - 4 * a * c;
+                String result;
 
                 if (discriminant > 0) {
                     double root1 = (-b + Math.sqrt(discriminant)) / (2 * a);
                     double root2 = (-b - Math.sqrt(discriminant)) / (2 * a);
+                    result = "Quadratic Equation, " + a + ", " + b + ", " + c + ", Solutions: x1 = " + root1 + ", x2 = " + root2;
                     JOptionPane.showMessageDialog(quadraticEquationFrame, "Solutions: x1 = " + root1 + ", x2 = " + root2);
                 } else if (discriminant == 0) {
                     double root = -b / (2 * a);
+                    result = "Quadratic Equation, " + a + ", " + b + ", " + c + ", Solution: x = " + root;
                     JOptionPane.showMessageDialog(quadraticEquationFrame, "Solution: x = " + root);
                 } else {
+                    result = "Quadratic Equation, " + a + ", " + b + ", " + c + ", No real solutions";
                     JOptionPane.showMessageDialog(quadraticEquationFrame, "No real solutions");
                 }
+
+                // Запис результату в файл
+                fileWriter.writeResult("Quadratic Equation", a, b, c, result);
             }
         });
 
@@ -134,7 +151,7 @@ class EquationSolverWindow extends JFrame {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
-                EquationSolverWindow window = new EquationSolverWindow();
+                main window = new main();
                 window.setVisible(true);
             }
         });
